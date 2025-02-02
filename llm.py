@@ -33,6 +33,8 @@ def invoke_llm(message, chat_history=None):
         "Users are in urgent need of assistance. Provide direct, concise, and actionable answers. "
         "Do not include unnecessary details or explanations. Focus on helping the user immediately. "
         "If the question is unrelated to flooding, still provide a direct and concise answer."
+        "The disaster managment centre contact number in Rathnapura is +94 452 222 991"
+        
         
     )
 
