@@ -12,19 +12,26 @@ logger = logging.getLogger(__name__)
 
 class VoiceChatbot:
     def __init__(self):
-        # Speech recognition setup
-        self.listener = sr.Recognizer()
-        
-        # Thread lock for text-to-speech synchronization
-        self.tts_lock = threading.Lock()
-        
-        # Streamlit configuration
+        # Set page config first
         st.set_page_config(page_title="Voice Chatbot", page_icon="🤖")
-        st.title("Voice Chatbot")
         
-        # Initialize chat history
-        if 'chat_history' not in st.session_state:
-            st.session_state.chat_history = []
+        try:
+            # Speech recognition setup
+            self.listener = sr.Recognizer()
+            
+            # Thread lock for text-to-speech synchronization
+            self.tts_lock = threading.Lock()
+            
+            # Initialize chat history at startup
+            if 'chat_history' not in st.session_state:
+                st.session_state.chat_history = []
+                
+        except Exception as e:
+            logger.error(f"Initialization error: {traceback.format_exc()}")
+            st.error(f"Error initializing the application: {str(e)}")
+            
+        # Set title after configuration
+        st.title("Voice Chatbot")
 
     def configure_voice(self, voice_id=1, rate=150):
         """Configure voice properties for text-to-speech."""
